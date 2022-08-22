@@ -10,58 +10,75 @@ const getFetch = async (endpoint) => {
     return json;
 }
 
-const tmdbApi = () => {
-  let getHomeList = async () => {
+export default {
+    getHomeList: async () => {
         return [
             {
                 slug: 'originals',
                 title: 'Originais NetFlix',
-                items: await getFetch(`/discover/tv?with_network=213&${ptBR}&api_key=${API_KEY}`)
+                items: await getFetch(`/discover/tv?with_networks=213&${ptBR}&api_key=${API_KEY}`)
             },
              
             {
                 slug: 'trending',
                 title: 'Recomendados para você',
-                items: await getFetch(`/trendin/all/week?${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/trending/all/week?${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'toprated',
                 title: 'Em alta',
-                items: await getFetch(`/movie/top_rated?${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/movie/top_rated?${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'action',
                 title: 'Filmes de ação',
-                items: await getFetch(`/discover/movie?with_genres=28${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/discover/movie?with_genres=28${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'Comedy',
                 title: 'Filmes de comédia',
-                items: await getFetch(`/discover/movie?with_genres=35&${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/discover/movie?with_genres=35&${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'horror',
                 title: 'Filmes de terror',
-                items: await getFetch(`/discover/movie?with_genres=27&${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/discover/movie?with_genres=27&${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'romance',
                 title: 'Filmes de romance',
-                items: await getFetch(`/discover/movie?with_genres=10749&${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/discover/movie?with_genres=10749&${ptBR}&api_key=${API_KEY}`)
             },
 
             {
                 slug: 'documentary',
                 title: 'Documentarios',
-                items: await getFetch(`/discover/movie?with_genres=99&${ptBR}&api_key${API_KEY}`)
+                items: await getFetch(`/discover/movie?with_genres=99&${ptBR}&api_key=${API_KEY}`)
             }
     ]
 
+    },
+    getMovieInfo: async (movieID, type) => {
+        let info = {};
+        if(movieID) {
+            switch(type) {
+                case 'movie':
+                    info = await getFetch(`/movie/${movieID}?${ptBR}&api_key=${API_KEY}`);
+                    break;
+                case 'tv':
+                    info = await getFetch(`/tv/${movieID}?${ptBR}&api_key=${API_KEY}`);
+                    break;
+                default:
+                    info = null;
+                    break;
+            }
+        }
+
+        return info;
     }
 }
-export default tmdbApi;

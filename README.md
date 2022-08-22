@@ -6,7 +6,7 @@
 ### Ferramentas usadas
 - Webpack
 - React
-- Sass 
+- Sass (Flex)
 
 ### Executando projeto localmente
 Instalar dependências: execute [npm i]() na raíz do projeto.
